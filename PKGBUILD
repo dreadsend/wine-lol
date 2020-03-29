@@ -12,7 +12,7 @@
 # Primary bug report: https://bugs.winehq.org/show_bug.cgi?id=47198
 
 pkgname=wine-lol
-pkgver=5.4
+pkgver=5.5
 pkgrel=1
 
 _pkgbasever=${pkgver/rc/-rc}
@@ -21,8 +21,8 @@ source=(https://dl.winehq.org/wine/source/5.x/wine-$_pkgbasever.tar.xz
         "wine-staging-v$_pkgbasever.tar.gz::https://github.com/wine-staging/wine-staging/archive/v$_pkgbasever.tar.gz"  
         30-win32-aliases.conf
         420CustomPatch1.diff)
-sha512sums=('892e8b875484ada01eaddab4ea50992f95cf3ced6730f8e2ca1f0765770d7fa53a21080c526772b9b3ac83b3559d3d68e83ad3af3afbe9d6f931d833afde7e98'
-            'd4958e73cea34a4a722f516487116d9f77a22099cb80b9c79f2468fbe28855acec131dacecfd255a9934fb88bcf34809bfb2e2e518d89ac23bcae125b6d6c86b'
+sha512sums=('9c7870dd829effe5fd1be342f85a85e2d1f791bfd871279253dd91becd97dea41c6c4f7a9faec0153e58e360d4e3b4d659daf0d21f07a142d06534e0c229aacd'
+            '8e926d73f275ed36b1c1e55235831c171b427501265a0e859accc7ca6b5077513bc2b3d37d973842b76b57a56798d11c101a387c626c96ed422d8a06cd908221'
             '6e54ece7ec7022b3c9d94ad64bdf1017338da16c618966e8baf398e6f18f80f7b0576edf1d1da47ed77b96d577e4cbb2bb0156b0b11c183a0accf22654b0a2bb'
             'a17db33ba5d6114bd71d1b013adc8e5ca0c3cedf856301cba59f95dadf643d2ee0e5a2d7abb2daedd5ed7c45cdbe93c78527f4d962bedc54776bb21cfc7e8b0b'
             )
@@ -124,9 +124,8 @@ prepare() {
   mv wine-$_pkgbasever $pkgname                                                  
 
   # apply wine-staging patchset
-  # disabling xactengine 
   pushd wine-staging-$_pkgbasever/patches         
-  ./patchinstall.sh DESTDIR="$srcdir/$pkgname" --all -W xactengine-initial
+  ./patchinstall.sh DESTDIR="$srcdir/$pkgname" --all
   popd
 
   # Apply League Of Legends fixes
