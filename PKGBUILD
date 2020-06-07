@@ -12,7 +12,7 @@
 # Primary bug report: https://bugs.winehq.org/show_bug.cgi?id=47198
 
 pkgname=wine-lol
-pkgver=5.6
+pkgver=5.10
 pkgrel=1
 
 _pkgbasever=${pkgver/rc/-rc}
@@ -20,11 +20,11 @@ _pkgbasever=${pkgver/rc/-rc}
 source=(https://dl.winehq.org/wine/source/5.x/wine-$_pkgbasever.tar.xz
         "wine-staging-v$_pkgbasever.tar.gz::https://github.com/wine-staging/wine-staging/archive/v$_pkgbasever.tar.gz"  
         30-win32-aliases.conf
-        420CustomPatch1.diff)
-sha512sums=('b12b0eff228ecd783fec8bf91f97e4387125226b172046d800e1fbffa303ceca32f1f647b9e8ceb24d303c23eb57188be14ddd8ba5fc04ba781a69186fbe6be4'
-            '7ddf5699834a6e04b094a7cae008175c874415d22554bac38176f3121b9533071ef610f8b5a0dd3ce3e4adf8a9d4ac214aa1cee7634959c5150b66fbb74710b7'
+        5_10CustomPatch.diff)
+sha512sums=('669d6861525cd4ab000113e8d9c5e10822b62b293914542ee34a826696df66e1d2f09b09f576f714e4117e79e25d1fd0b2a06c57d29da0efa0bdfcb9fee59c60'
+            'fca5ddb648ac45c242b9bd7ccb0980161bff1e3539aa1a116f1cceece9d3b4a3188c82bd93624f561653dda793ad16dc00a87c7ed0c38f19a93b538519ef806c'
             '6e54ece7ec7022b3c9d94ad64bdf1017338da16c618966e8baf398e6f18f80f7b0576edf1d1da47ed77b96d577e4cbb2bb0156b0b11c183a0accf22654b0a2bb'
-            'a17db33ba5d6114bd71d1b013adc8e5ca0c3cedf856301cba59f95dadf643d2ee0e5a2d7abb2daedd5ed7c45cdbe93c78527f4d962bedc54776bb21cfc7e8b0b'
+            '43036e42d70bcc463ec4d085ca7af546cec1aa1edc7a41a9b804c9ef4fdaf793ef32c90d6dfe72cf0a7e06b58a0f26c8a13f085ccf41bd676065b3c310b005f1'
             )
 
 pkgdesc="A compatibility layer for running Windows programs - Staging branch with League Of Legends fixes"
@@ -130,7 +130,7 @@ prepare() {
 
   # Apply League Of Legends fixes
   pushd "$srcdir/$pkgname"
-  patch -p1 -i "$srcdir/420CustomPatch1.diff"
+  patch -p1 -i "$srcdir/5_10CustomPatch.diff"
   popd
 
   # Fix opencl header path
