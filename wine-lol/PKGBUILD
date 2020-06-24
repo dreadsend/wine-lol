@@ -11,12 +11,13 @@
 # Some history:
 # Primary bug report: https://bugs.winehq.org/show_bug.cgi?id=47198
 
-#In wine Staging 5.10 there is a bug that breaks the execution of Programs in Wine, including builtins
-#Currently used Patch seems questionable
-#Bug Report: https://bugs.winehq.org/show_bug.cgi?id=49326
+# Post Wine Staging 5.6 League of Legends Crashes When Loading into game
+# There is a Patch for up to wine 5.9, However higher it still fails to start 
+# Bug Report wine >= 5.9 : https://bugs.winehq.org/show_bug.cgi?id=49373
+
 
 pkgname=wine-lol
-pkgver=5.10
+pkgver=5.11
 pkgrel=1
 
 _pkgbasever=${pkgver/rc/-rc}
@@ -24,13 +25,11 @@ _pkgbasever=${pkgver/rc/-rc}
 source=(https://dl.winehq.org/wine/source/5.x/wine-$_pkgbasever.tar.xz
         "wine-staging-v$_pkgbasever.tar.gz::https://github.com/wine-staging/wine-staging/archive/v$_pkgbasever.tar.gz"  
         30-win32-aliases.conf
-        5_10CustomPatch.diff
-        AssertionFailBugWine5_10.diff::https://bugs.winehq.org/attachment.cgi?id=67362)
-sha512sums=('669d6861525cd4ab000113e8d9c5e10822b62b293914542ee34a826696df66e1d2f09b09f576f714e4117e79e25d1fd0b2a06c57d29da0efa0bdfcb9fee59c60'
-            'fca5ddb648ac45c242b9bd7ccb0980161bff1e3539aa1a116f1cceece9d3b4a3188c82bd93624f561653dda793ad16dc00a87c7ed0c38f19a93b538519ef806c'
+        5_11CustomPatch.diff)
+sha512sums=('fac78a98e03e0305c85fff393b7c5d46a3fbe11aff4a0153771187d3ad0212189d1fa88947fc9fe0da7bd8327eb71283f28ff866c4d8b2bc759a2ad2197fc9a1'
+            'a5cff848077f937d8f910d6f8b4efc033435c99bc6eeb8cf2a39e812b09c9fad5602e91e761eb1a006a1487299f7d81ecf7597d104fcafd076a8692e086af1a5'
             '6e54ece7ec7022b3c9d94ad64bdf1017338da16c618966e8baf398e6f18f80f7b0576edf1d1da47ed77b96d577e4cbb2bb0156b0b11c183a0accf22654b0a2bb'
-            '43036e42d70bcc463ec4d085ca7af546cec1aa1edc7a41a9b804c9ef4fdaf793ef32c90d6dfe72cf0a7e06b58a0f26c8a13f085ccf41bd676065b3c310b005f1'
-            '1ac0b9457eb9e7bb417b51b88661971879beb6b60957b9bf686f090bb5d1d9fa5d980e498bcd53fa3e650fb4da324369e9990f39e74dd2cfb996c766a633db49'
+            '59ea6fa03dda3631fc0a7b84342a20a77dd8f603353b33dd25fd658ea3b195e1b260e94a2180eaf49a89754edc972a3311328df1ffa9271eb79f6a38987ca8f1'
             )
 
 pkgdesc="A compatibility layer for running Windows programs - Staging branch with League Of Legends fixes"
@@ -136,11 +135,7 @@ prepare() {
 
   # Apply League Of Legends fixes
   pushd "$srcdir/$pkgname"
-  patch -p1 -i "$srcdir/5_10CustomPatch.diff"
-
-  #Bugfix for Assertion Failure on Application start
-  patch -p1 -i "$srcdir/AssertionFailBugWine5_10.diff"
-
+  patch -p1 -i "$srcdir/5_11CustomPatch.diff"
   popd
 
   # Fix opencl header path

@@ -1,8 +1,8 @@
 diff --git a/dlls/ntdll/thread.c b/dlls/ntdll/thread.c
-index a7d2a1e..71e9a83 100644
+index cd0291482c..1fe6e2977e 100644
 --- a/dlls/ntdll/thread.c
 +++ b/dlls/ntdll/thread.c
-@@ -258,6 +258,76 @@ void *WINAPI __wine_fakedll_dispatcher( const char *module, ULONG ord )
+@@ -144,6 +144,76 @@ void *WINAPI __wine_fakedll_dispatcher( const char *module, ULONG ord )
      return proc;
  }
  
@@ -79,10 +79,10 @@ index a7d2a1e..71e9a83 100644
  /***********************************************************************
   *           thread_init
   *
-@@ -310,6 +380,11 @@ TEB *thread_init( SIZE_T *info_size, BOOL *suspend )
+@@ -189,6 +259,11 @@ TEB *thread_init( SIZE_T *info_size, BOOL *suspend )
+ 
      unix_funcs->get_paths( &build_dir, &data_dir, &config_dir );
      fill_cpu_info();
-     server_init_process();
 +
 +#ifdef __i386__
 +    seccomp_init();
